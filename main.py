@@ -1,4 +1,7 @@
 ## -----------------> TaskFlow <------------------------------ ##
+
+#making json (start)
+
 import json
 
 try:
@@ -7,8 +10,9 @@ try:
 except FileNotFoundError:
     tasks = []
 
+#making json (end)
 
-# test start #working stable :)
+# toggle tasks (start)
 
 def toggle_task(tasks):
     try:
@@ -24,13 +28,17 @@ def toggle_task(tasks):
     except ValueError:
         print("Please enter a valid number")
 
+# Toggle tasks (end)
 
-# test end # stable
+# SAVE TASKS (start)
 
 def save_tasks(tasks):
     with open("tasks.json", "w", encoding="utf-8") as file:
         json.dump(tasks, file, indent=4, ensure_ascii=False)
 
+# SAVE TASKS (end)
+
+# SHOW MENU (start)
 
 def show_menu():
     print("=====TaskFlow=====")
@@ -45,8 +53,10 @@ def show_menu():
     print("9. Search tasks")
     print("10. Sort tasks")
     print("0. Exit")
-    ###############
 
+# SHOW MENU (end)
+
+# SHOW TASKS (start)
 
 def show_tasks(tasks):
     for number, task in enumerate(tasks, start=1):
@@ -57,6 +67,9 @@ def show_tasks(tasks):
 
         print(f'{number}. {status} {task["title"]}')
 
+# SHOW TASKS (end)
+
+# ADD TASKS (start)
 
 def add_task(tasks):
     new_task = input("Enter new task: ").strip()
@@ -69,6 +82,9 @@ def add_task(tasks):
     })
     save_tasks(tasks)
 
+# ADD TASKS (end)
+
+# REMOVE TASKS (start)
 
 def remove_task(tasks):
     try:
@@ -82,6 +98,9 @@ def remove_task(tasks):
     except ValueError:
         print('EBnuti? Please enter a valid number')
 
+# REMOVE TASKS (end)
+
+# EDIT TASKS (start)
 
 def edit_task(tasks):
     try:
@@ -103,6 +122,9 @@ def edit_task(tasks):
     except ValueError:
         print("Please enter a valid number")
 
+# EDIT TASKS (end)
+
+# SHOWING COMPLITED and PENDING (start)
 
 def show_completed(tasks):
     print("Completed tasks:")
@@ -117,6 +139,10 @@ def show_pending(tasks):
         if not task["completed"]:
             print(task["title"])
 
+# SHOWING COMPLITED and PENDING (end)
+
+
+# Show statistics (start)
 
 def show_statistics(tasks):
     total = len(tasks)
@@ -132,6 +158,9 @@ def show_statistics(tasks):
     print("Completed tasks:", completed)
     print("Pending tasks:", pending)
 
+# Show statistics (end)
+
+#search tasks (start)
 
 def search_tasks(tasks):
     search = input("Enter search term: ").strip().lower()
@@ -146,12 +175,20 @@ def search_tasks(tasks):
 
     print("Found tasks:", found)
 
+#search tasks (end)
+
+#sorting tasks (start)
+
 def sort_tasks(tasks):
     sorted_tasks = sorted(tasks, key=lambda task: task["title"].lower())
 
     for task in sorted_tasks:
         print(task["title"])
 
+#sorting tasks (end)
+
+
+# While (starts)
 
 while True:
     show_menu()
@@ -182,3 +219,5 @@ while True:
         sort_tasks(tasks)
     else:
         print("wrong option")
+
+# While (end)

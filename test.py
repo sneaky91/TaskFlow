@@ -268,16 +268,35 @@
 
 # ------> Sort <------#
 
-tasks = [
-    {"title": "Python", "completed": False},
-    {"title": "Gym", "completed": True},
-    {"title": "School", "completed": False},
-    {"title": "Homework", "completed": False}
-]
+#tasks = [
+#    {"title": "Python", "completed": False},
+#    {"title": "Gym", "completed": True},
+#    {"title": "School", "completed": False},
+#    {"title": "Homework", "completed": False}
+#]#
 
-sorted_tasks = sorted(tasks, key=lambda task: task["title"], reverse=True)
+#sorted_tasks = sorted(tasks, key=lambda task: task["title"], reverse=True)
 
 
 # ТУТ ТВІЙ КОД
-for task in sorted_tasks:
-    print(task["title"])
+#for task in sorted_tasks:
+#    print(task["title"])
+
+# ---------> Priority <---------#
+
+
+tasks = [
+    {"title": "Learn Python", "completed": False, "priority": "High"},
+    {"title": "Go to gym", "completed": True, "priority": "Medium"},
+    {"title": "Read book", "completed": False, "priority": "Low"}
+]
+
+# ТУТ ТВІЙ КОД
+priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
+if priority not in ["Low", "Medium", "High"]:
+    print("Invalid priority")
+    return
+
+
+for task in tasks:
+    print(task["title"], '|',  task["priority"])

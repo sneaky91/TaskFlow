@@ -1,8 +1,11 @@
 ## -----------------> TaskFlow <------------------------------ ##
 
-#making json (start)
+# making json (start)
 
 import json
+from datetime import datetime
+
+now = datetime.now()
 
 try:
     with open("tasks.json", "r", encoding="utf-8") as file:
@@ -10,7 +13,8 @@ try:
 except FileNotFoundError:
     tasks = []
 
-#making json (end)
+
+# making json (end)
 
 # toggle tasks (start)
 
@@ -28,6 +32,7 @@ def toggle_task(tasks):
     except ValueError:
         print("Please enter a valid number")
 
+
 # Toggle tasks (end)
 
 # SAVE TASKS (start)
@@ -35,6 +40,7 @@ def toggle_task(tasks):
 def save_tasks(tasks):
     with open("tasks.json", "w", encoding="utf-8") as file:
         json.dump(tasks, file, indent=4, ensure_ascii=False)
+
 
 # SAVE TASKS (end)
 
@@ -52,7 +58,9 @@ def show_menu():
     print("8. Show statistics")
     print("9. Search tasks")
     print("10. Sort tasks")
+    print("11. Sort by priority")
     print("0. Exit")
+
 
 # SHOW MENU (end)
 
@@ -64,8 +72,9 @@ def show_tasks(tasks):
             status = "[x]"
         else:
             status = "[ ]"
+        priority = task.get("priority", "Medium")
+        print(f'{number}. {status} {task["title"]} | {priority}')
 
-        print(f'{number}. {status} {task["title"]}')
 
 # SHOW TASKS (end)
 
@@ -73,14 +82,20 @@ def show_tasks(tasks):
 
 def add_task(tasks):
     new_task = input("Enter new task: ").strip()
+    priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
     if new_task == "":
         print("task cannot be empty")
         return
+    if priority not in ["Low", "Medium", "High"]:
+        print("Invalid priority")
+        return
     tasks.append({
         "title": new_task,
-        "completed": False
+        "completed": False,
+        "priority": priority
     })
     save_tasks(tasks)
+
 
 # ADD TASKS (end)
 
@@ -97,6 +112,7 @@ def remove_task(tasks):
             print("Invalid number")
     except ValueError:
         print('EBnuti? Please enter a valid number')
+
 
 # REMOVE TASKS (end)
 
@@ -122,6 +138,7 @@ def edit_task(tasks):
     except ValueError:
         print("Please enter a valid number")
 
+
 # EDIT TASKS (end)
 
 # SHOWING COMPLITED and PENDING (start)
@@ -138,6 +155,7 @@ def show_pending(tasks):
     for task in tasks:
         if not task["completed"]:
             print(task["title"])
+
 
 # SHOWING COMPLITED and PENDING (end)
 
@@ -158,9 +176,10 @@ def show_statistics(tasks):
     print("Completed tasks:", completed)
     print("Pending tasks:", pending)
 
+
 # Show statistics (end)
 
-#search tasks (start)
+# search tasks (start)
 
 def search_tasks(tasks):
     search = input("Enter search term: ").strip().lower()
@@ -175,17 +194,38 @@ def search_tasks(tasks):
 
     print("Found tasks:", found)
 
-#search tasks (end)
 
-#sorting tasks (start)
+# search tasks (end)
+
+# sorting tasks (start)
+
+def sort_by_priority(tasks):
+    priority_order = {
+        "High": 1,
+        "Medium": 2,
+        "Low": 3
+    }
+
+    sorted_tasks = sorted(
+        tasks,
+        key=lambda task: priority_order[task.get("priority", "Medium")]
+    )
+
+    for task in sorted_tasks:
+        print(task["title"], "|", task.get("priority", "Medium"))
+
 
 def sort_tasks(tasks):
-    sorted_tasks = sorted(tasks, key=lambda task: task["title"].lower())
+    sorted_tasks = sorted(
+        tasks,
+        key=lambda task: task["title"].lower()
+    )
 
     for task in sorted_tasks:
         print(task["title"])
 
-#sorting tasks (end)
+
+# sorting tasks (end)
 
 
 # While (starts)
@@ -217,6 +257,8 @@ while True:
         search_tasks(tasks)
     elif task == "10":
         sort_tasks(tasks)
+    elif task == "11":
+        sort_by_priority(tasks)
     else:
         print("wrong option")
 

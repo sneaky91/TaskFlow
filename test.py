@@ -286,17 +286,23 @@
 
 
 tasks = [
-    {"title": "Learn Python", "completed": False, "priority": "High"},
-    {"title": "Go to gym", "completed": True, "priority": "Medium"},
-    {"title": "Read book", "completed": False, "priority": "Low"}
+    {"title": "Gym", "priority": "Low"},
+    {"title": "Python", "priority": "High"},
+    {"title": "Homework", "priority": "Medium"}
 ]
 
-# ТУТ ТВІЙ КОД
-priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
-if priority not in ["Low", "Medium", "High"]:
-    print("Invalid priority")
-    return
+priority_order = {
+    "High": 1,
+    "Medium": 2,
+    "Low": 3
+}
 
+# Тут створи sorted_tasks через sorted() і lambda
+sorted_tasks = sorted(
+    tasks,
+    key=lambda task: priority_order[task.get("priority", "Medium")]
+)
+# Тут напиши цикл for для виведення назви та пріоритету
 
-for task in tasks:
-    print(task["title"], '|',  task["priority"])
+for task in sorted_tasks:
+    print(task["title"], '|', task["priority"])

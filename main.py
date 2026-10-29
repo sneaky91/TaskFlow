@@ -41,6 +41,9 @@ def show_menu():
     print("5. Edit task")
     print("6. Show completed")
     print("7. Show Pending")
+    print("8. Show statistics")
+    print("9. Search tasks")
+    print("10. Sort tasks")
     print("0. Exit")
     ###############
 
@@ -115,6 +118,41 @@ def show_pending(tasks):
             print(task["title"])
 
 
+def show_statistics(tasks):
+    total = len(tasks)
+    completed = 0
+
+    for task in tasks:
+        if task["completed"]:
+            completed += 1
+
+    pending = total - completed
+
+    print("Total tasks:", total)
+    print("Completed tasks:", completed)
+    print("Pending tasks:", pending)
+
+
+def search_tasks(tasks):
+    search = input("Enter search term: ").strip().lower()
+    found = 0
+    if search == "":
+        print("Search cannot be empty")
+        return
+    for task in tasks:
+        if search in task["title"].lower():
+            print(task["title"])
+            found += 1
+
+    print("Found tasks:", found)
+
+def sort_tasks(tasks):
+    sorted_tasks = sorted(tasks, key=lambda task: task["title"].lower())
+
+    for task in sorted_tasks:
+        print(task["title"])
+
+
 while True:
     show_menu()
 
@@ -136,5 +174,11 @@ while True:
         show_completed(tasks)
     elif task == "7":
         show_pending(tasks)
+    elif task == "8":
+        show_statistics(tasks)
+    elif task == "9":
+        search_tasks(tasks)
+    elif task == "10":
+        sort_tasks(tasks)
     else:
         print("wrong option")

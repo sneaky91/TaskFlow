@@ -246,3 +246,38 @@
 # show_pending(tasks)
 # else:
 # print("wrong option")
+
+
+# --------> Search <---------#
+
+#tasks = [
+#    {"title": "Learn Python", "completed": False},
+#    {"title": "Go to gym", "completed": True},
+ #   {"title": "Python homework", "completed": False}
+#]
+
+#search = input("Search: ").lower()
+#found = 0
+
+#for task in tasks:
+#    if search in task["title"].lower():
+#        print(task["title"])
+#        found += 1
+
+#print("Found tasks:", found)
+
+# ------> Sort <------#
+
+tasks = [
+    {"title": "Python", "completed": False},
+    {"title": "Gym", "completed": True},
+    {"title": "School", "completed": False},
+    {"title": "Homework", "completed": False}
+]
+
+sorted_tasks = sorted(tasks, key=lambda task: task["title"], reverse=True)
+
+
+# ТУТ ТВІЙ КОД
+for task in sorted_tasks:
+    print(task["title"])

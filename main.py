@@ -4,7 +4,7 @@
 
 
 import json
-from datetime import datetime,date
+from datetime import date, datetime
 
 # json Ending
 
@@ -69,14 +69,17 @@ def show_menu():
 # SHOW TASKS (start)
 
 def show_tasks(tasks):
-    deadline = tasks.get("deadline", "No deadline")
     for number, task in enumerate(tasks, start=1):
         if task["completed"]:
             status = "[x]"
         else:
             status = "[ ]"
+
         priority = task.get("priority", "Medium")
-        print(f'{number}. {status} {task["title"]} | {priority}, | {deadline}')
+
+        deadline = task.get("deadline", "No deadline")
+
+        print(f'{number}. {status} {task["title"]} | {priority} | {deadline}')
 
 
 # SHOW TASKS (end)

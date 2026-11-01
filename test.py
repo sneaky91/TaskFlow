@@ -310,29 +310,47 @@
 
 # Date Time <--------------------------------------
 
+# from datetime import date, datetime
+#
+# today = date.today()
+#
+# deadline = input("Enter deadline (YYYY-MM-DD): ")
+#
+# deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
+#
+# difference = deadline - today
+#
+# if difference.days > 0:
+#     print(f"{difference.days} days remaining")
+# elif difference.days == 0:
+#     print("Deadline is today!")
+# else:
+#     print("Deadline has passed!")
+
+# ENDING
+
 from datetime import date, datetime
 
 today = date.today()
-
 deadline = input("Enter deadline (YYYY-MM-DD): ")
 
-# Перетвори deadline_input на дату
-deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
-# Обчисли різницю
+try:
+    # 1. Перетвори deadline на дату
+    deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
 
-difference = deadline - today
+    # 2. Обчисли difference
+    difference = deadline - today
 
-# Напиши if / elif / else
+    # 3. Напиши if / elif / else
+    if difference.days > 0:
+        print(f"{difference.days} days remaining")
+    elif difference.days == 0:
+        print("Deadline is today!")
+    else:
+        print("Deadline has passed!")
+except ValueError:
+    print("Invalid date format!")
 
-if difference.days > 0:
-    print(f"{difference.days} days remaining")
-elif difference.days == 0:
-    print('Deadline is today!')
-elif difference.days < 0:
-    print("deadline has passed!")
-
-
-# ENDING
 
 ## -----------------> TaskFlow v6<------------------------------ ##
 

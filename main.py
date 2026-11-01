@@ -83,6 +83,7 @@ def show_tasks(tasks):
 def add_task(tasks):
     new_task = input("Enter new task: ").strip()
     priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
+    deadline = input("Enter deadline (YYYY-MM-DD): ").strip()
     if new_task == "":
         print("task cannot be empty")
         return

@@ -2,10 +2,12 @@
 
 # making json (start)
 
-import json
-from datetime import datetime
 
-now = datetime.now()
+import json
+from datetime import datetime,date
+
+# json Ending
+
 
 try:
     with open("tasks.json", "r", encoding="utf-8") as file:
@@ -67,13 +69,14 @@ def show_menu():
 # SHOW TASKS (start)
 
 def show_tasks(tasks):
+    deadline = tasks.get("deadline", "No deadline")
     for number, task in enumerate(tasks, start=1):
         if task["completed"]:
             status = "[x]"
         else:
             status = "[ ]"
         priority = task.get("priority", "Medium")
-        print(f'{number}. {status} {task["title"]} | {priority}')
+        print(f'{number}. {status} {task["title"]} | {priority}, | {deadline}')
 
 
 # SHOW TASKS (end)
@@ -84,6 +87,12 @@ def add_task(tasks):
     new_task = input("Enter new task: ").strip()
     priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
     deadline = input("Enter deadline (YYYY-MM-DD): ").strip()
+
+    try:
+        datetime.strptime(deadline, "%Y-%m-%d")
+    except ValueError:
+        print("Invalid date format!")
+        return
     if new_task == "":
         print("task cannot be empty")
         return
@@ -93,7 +102,8 @@ def add_task(tasks):
     tasks.append({
         "title": new_task,
         "completed": False,
-        "priority": priority
+        "priority": priority,
+        "deadline": deadline
     })
     save_tasks(tasks)
 
@@ -112,7 +122,7 @@ def remove_task(tasks):
         else:
             print("Invalid number")
     except ValueError:
-        print('EBnuti? Please enter a valid number')
+        print('Please enter a valid number')
 
 
 # REMOVE TASKS (end)

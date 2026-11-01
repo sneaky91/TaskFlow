@@ -329,27 +329,54 @@
 
 # ENDING
 
-from datetime import date, datetime
+# from datetime import date, datetime
+#
+# today = date.today()
+# deadline = input("Enter deadline (YYYY-MM-DD): ")
+#
+# try:
+#     # 1. Перетвори deadline на дату
+#     deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
+#
+#     # 2. Обчисли difference
+#     difference = deadline - today
+#
+#     # 3. Напиши if / elif / else
+#     if difference.days > 0:
+#         print(f"{difference.days} days remaining")
+#     elif difference.days == 0:
+#         print("Deadline is today!")
+#     else:
+#         print("Deadline has passed!")
+# except ValueError:
+#     print("Invalid date format!")
 
-today = date.today()
-deadline = input("Enter deadline (YYYY-MM-DD): ")
 
-try:
-    # 1. Перетвори deadline на дату
-    deadline = datetime.strptime(deadline, "%Y-%m-%d").date()
-
-    # 2. Обчисли difference
-    difference = deadline - today
-
-    # 3. Напиши if / elif / else
-    if difference.days > 0:
-        print(f"{difference.days} days remaining")
-    elif difference.days == 0:
-        print("Deadline is today!")
-    else:
-        print("Deadline has passed!")
-except ValueError:
-    print("Invalid date format!")
+# def add_task(tasks):
+#     new_task = input("Enter new task: ").strip()
+#
+#     if new_task == "":
+#         print("Task cannot be empty")
+#         return
+#
+#     priority = input("Enter priority (Low/Medium/High): ").strip().capitalize()
+#
+#     if priority not in ["Low", "Medium", "High"]:
+#         print("Invalid priority")
+#         return
+#
+#     deadline = input("Enter deadline (YYYY-MM-DD): ").strip()
+#
+#     try:
+#         # Перевір дату через datetime.strptime()
+#         pass
+#     except ValueError:
+#         print("Invalid date format!")
+#         return
+#
+#     # Додай словник із 4 ключами до tasks
+#
+#     # Збережи завдання через save_tasks()
 
 
 ## -----------------> TaskFlow v6<------------------------------ ##

@@ -647,9 +647,28 @@
 
 
 
+# from datetime import datetime
+#
+# deadline = "hello"
+#
+# try:
+#     deadline_date = datetime.strptime(deadline, "%Y-%m-%d").date()
+#     print("Valid date")
+# except ValueError:
+#     print('Invalid deadline')
+#
+#
 
 
 
+tasks = [
+    {"title": "Learn Python", "completed": False},
+    {"title": "Homework", "completed": True},
+    {"title": "Learn FastAPI", "completed": False}
+]
 
+for task in tasks:
+    if task["completed"]:
+        continue
 
-
+    print(task["title"])

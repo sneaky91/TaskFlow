@@ -4,7 +4,7 @@
 
 
 import json
-from datetime import datetime,date
+from datetime import date, datetime
 
 # json Ending
 
@@ -69,14 +69,34 @@ def show_menu():
 # SHOW TASKS (start)
 
 def show_tasks(tasks):
-    deadline = tasks.get("deadline", "No deadline")
+    today = date.today()
     for number, task in enumerate(tasks, start=1):
         if task["completed"]:
             status = "[x]"
         else:
             status = "[ ]"
+
         priority = task.get("priority", "Medium")
-        print(f'{number}. {status} {task["title"]} | {priority}, | {deadline}')
+
+        deadline = task.get("deadline")
+
+        if deadline is None:
+            deadline_status = "No deadline"
+        else:
+            try:
+                deadline_date = datetime.strptime(deadline, "%Y-%m-%d").date()
+                difference = deadline_date - today
+
+                if difference.days > 0:
+                    deadline_status = f"{difference.days} days left"
+                elif difference.days == 0:
+                    deadline_status = "Due today!"
+                else:
+                    deadline_status = "Overdue!"
+            except ValueError:
+                deadline_status = "Invalid deadline"
+
+        print(f'{number}. {status} {task["title"]} | {priority} | {deadline_status}')
 
 
 # SHOW TASKS (end)
@@ -89,9 +109,13 @@ def add_task(tasks):
     deadline = input("Enter deadline (YYYY-MM-DD): ").strip()
 
     try:
-        datetime.strptime(deadline, "%Y-%m-%d")
+        deadline_date = datetime.strptime(deadline, "%Y-%m-%d").date()
     except ValueError:
         print("Invalid date format!")
+        return
+
+    if deadline_date < date.today():
+        print("Deadline cannot be in the past!")
         return
     if new_task == "":
         print("task cannot be empty")
@@ -164,8 +188,9 @@ def show_completed(tasks):
 def show_pending(tasks):
     print("Pending tasks:")
     for task in tasks:
-        if not task["completed"]:
-            print(task["title"])
+        if task["completed"]:
+            continue
+        print(task["title"])
 
 
 # SHOWING COMPLITED and PENDING (end)

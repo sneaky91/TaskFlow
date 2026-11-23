@@ -661,14 +661,30 @@
 
 
 
+#
+# tasks = [
+#     {"title": "Learn Python", "completed": True},
+#     {"title": "Homework", "completed": False},
+#     {"title": "Learn FastAPI", "completed": False}
+# ]
+#
+# has_pending = any(not task["completed"] for task in tasks)
+#
+# if has_pending:
+#     print("There are pending tasks")
+# else:
+#     print("No pending tasks")
+
 tasks = [
-    {"title": "Learn Python", "completed": False},
+    {"title": "Learn Python", "completed": True},
     {"title": "Homework", "completed": True},
     {"title": "Learn FastAPI", "completed": False}
 ]
 
-for task in tasks:
-    if task["completed"]:
-        continue
+all_completed = all(task["completed"] for task in tasks)
 
-    print(task["title"])
+# Тут твій код
+if all_completed:
+    print("All tasks completed")
+else:
+    print("Some tasks are still pending!")

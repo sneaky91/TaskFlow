@@ -179,7 +179,12 @@ def edit_task(tasks):
 # SHOWING COMPLITED and PENDING (start)
 
 def show_completed(tasks):
-    print("Completed tasks:")
+    has_completed = any(task["completed"] for task in tasks)
+    if not has_completed:
+        print("No completed tasks!")
+        return
+    print("completed tasks:")
+
     for task in tasks:
         if task["completed"]:
             print(task["title"])
@@ -211,6 +216,10 @@ def show_statistics(tasks):
     print("Total tasks:", total)
     print("Completed tasks:", completed)
     print("Pending tasks:", pending)
+
+    all_completed = all(task["completed"] for task in tasks)
+    if tasks and all_completed:
+        print("all tasks completed")
 
 
 # Show statistics (end)
